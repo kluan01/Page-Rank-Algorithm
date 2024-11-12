@@ -1,76 +1,163 @@
-#include <catch2/catch_test_macros.hpp>
-#include <iostream>
-
-// change if you choose to use a different header name
-#include "AdjacencyList.h"
-
-using namespace std;
-
-// the syntax for defining a test is below. It is important for the name to be
-// unique, but you can group multiple tests with [tags]. A test can have
-// [multiple][tags] using that syntax.
-TEST_CASE("Example Test Name - Change me!", "[tag]") {
-  // instantiate any class members that you need to test here
-  int one = 1;
-
-  // anything that evaluates to false in a REQUIRE block will result in a
-  // failing test
-  REQUIRE(one == 0); // fix me!
-
-  // all REQUIRE blocks must evaluate to true for the whole test to pass
-  REQUIRE(false); // also fix me!
-}
-
-TEST_CASE("Test 2", "[tag]") {
-  // you can also use "sections" to share setup code between tests, for example:
-  int one = 1;
-
-  SECTION("num is 2") {
-    int num = one + 1;
-    REQUIRE(num == 2);
-  };
-
-  SECTION("num is 3") {
-    int num = one + 2;
-    REQUIRE(num == 3);
-  };
-
-  // each section runs the setup code independently to ensure that they don't
-  // affect each other
-}
-
-// You must write 5 unique, meaningful tests for credit on the testing section
-// of this project!
-
-// See the following for an example of how to easily test your output.
-// This uses C++ "raw strings" and assumes your PageRank outputs a string with
-//   the same thing you print.
-TEST_CASE("Example PageRank Output Test", "[flag]") {
-  // the following is a "raw string" - you can write the exact input (without
-  //   any indentation!) and it should work as expected
-  string input = R"(7 2
-google.com gmail.com
-google.com maps.com
-facebook.com ufl.edu
-ufl.edu google.com
-ufl.edu gmail.com
-maps.com facebook.com
-gmail.com maps.com)";
-
-  string expectedOutput = R"(facebook.com 0.20
-gmail.com 0.20
-google.com 0.10
-maps.com 0.30
-ufl.edu 0.20
-)";
-
-  string actualOutput;
-
-  // somehow pass your input into your AdjacencyList and parse it to call the
-  // correct functions, for example:
-  //  AdjacencyList g;
-  //  g.parseInput(input)
-  //  actualOutput = g.getStringRepresentation()
-
-  REQUIRE(actualOutput == expectedOutput);
-}
+//#include <catch2/catch_test_macros.hpp>
+//#include <iostream>
+//#include <sstream>
+//#include "AdjacencyList.h"
+//using namespace std;
+//
+//TEST_CASE("Test One - Base Test", "[Base Input/Test]") {
+//    // instantiate class & variables
+//    AdjacencyList adjList;
+//    set<string> websites;
+//    int powerIterations = 2;
+//
+//    // insert edges
+//    adjList.insertEdge("facebook.com", "google.com", websites);
+//    adjList.insertEdge("facebook.com", "gmail.com", websites);
+//    adjList.insertEdge("google.com", "ufl.edu", websites);
+//    adjList.insertEdge("gmail.com", "ufl.edu", websites);
+//    adjList.insertEdge("ufl.edu", "minecraft.com", websites);
+//    adjList.insertEdge("minecraft.com", "facebook.com", websites);
+//    for (auto& website : websites) {
+//        adjList.insertEmptyNode(website);
+//    }
+//
+//    // calculate rank
+//    int numWebsites = websites.size();
+//    vector<double> initialRank(numWebsites, 1.0 / numWebsites);
+//    adjList.calcPowerRank(initialRank, powerIterations);
+//
+//    // initialize expected results
+//    vector<string> webOrder = {"facebook.com", "gmail.com", "google.com", "minecraft.com", "ufl.edu"};
+//    vector<double> expectedRanks = {0.2, 0.1, 0.1, 0.2, 0.4};
+//
+//    // compare actual results vs expected results
+//    for (int i = 0; i < webOrder.size(); i++) {
+//        string website = webOrder[i];
+//        double expectedRank = expectedRanks[i];
+//        REQUIRE(initialRank[i] == expectedRank);
+//    }
+//    cout << "Test One Successful!" << endl;
+//}
+//
+//TEST_CASE("Test Two - Empty Out-degree Connections", "[Empty Out-degree]") {
+//    // instantiate class & variables
+//    AdjacencyList adjList;
+//    set<string> websites;
+//    int powerIterations = 2;
+//
+//    // insert edges
+//    adjList.insertEdge("google.com", "facebook.com", websites);
+//    adjList.insertEdge("gmail.com", "google.com", websites);
+//    adjList.insertEdge("gmail.com", "facebook.com", websites);
+//    for (auto& website : websites) {
+//        adjList.insertEmptyNode(website);
+//    }
+//
+//    // calculate rank
+//    int numWebsites = websites.size();
+//    vector<double> initialRank(numWebsites, 1.0 / numWebsites);
+//    adjList.calcPowerRank(initialRank, powerIterations);
+//
+//    // initialize expected results
+//    vector<string> webOrder = {"facebook.com", "gmail.com", "google.com"};
+//    vector<double> expectedRanks = {0.5, 0.0, 0.17};
+//
+//    // compare actual results vs expected results
+//    for (int i = 0; i < webOrder.size(); i++) {
+//        string website = webOrder[i];
+//        double expectedRank = expectedRanks[i];
+//        REQUIRE(initialRank[i] == expectedRank);
+//    }
+//    cout << "Test Two Successful!" << endl;
+//}
+//
+//TEST_CASE("Test Three - Single Connection", "[Small Input] [Empty Out-degree]" ) {
+//    // instantiate class & variables
+//    AdjacencyList adjList;
+//    set<string> websites;
+//    int powerIterations = 2;
+//
+//    // insert edges
+//    adjList.insertEdge("facebook.com", "google.com", websites);
+//    for (auto& website : websites) {
+//        adjList.insertEmptyNode(website);
+//    }
+//
+//    // calculate rank
+//    int numWebsites = websites.size();
+//    vector<double> initialRank(numWebsites, 1.0 / numWebsites);
+//    adjList.calcPowerRank(initialRank, powerIterations);
+//
+//    // initialize expected results
+//    vector<string> webOrder = {"facebook.com", "google.com"};
+//    vector<double> expectedRanks = {0.0, 0.5};
+//
+//    // compare actual results vs expected results
+//    for (int i = 0; i < webOrder.size(); i++) {
+//        string website = webOrder[i];
+//        double expectedRank = expectedRanks[i];
+//        REQUIRE(initialRank[i] == expectedRank);
+//    }
+//    cout << "Test Three Successful!" << endl;
+//}
+//
+//TEST_CASE("Test Four - Cyclical Connection", "[Small Input] [Cyclical Map]" ) {
+//    // instantiate class & variables
+//    AdjacencyList adjList;
+//    set<string> websites;
+//    int powerIterations = 2;
+//
+//    // insert edges
+//    adjList.insertEdge("facebook.com", "google.com", websites);
+//    adjList.insertEdge("google.com", "facebook.com", websites);
+//    for (auto& website : websites) {
+//        adjList.insertEmptyNode(website);
+//    }
+//
+//    // calculate rank
+//    int numWebsites = websites.size();
+//    vector<double> initialRank(numWebsites, 1.0 / numWebsites);
+//    adjList.calcPowerRank(initialRank, powerIterations);
+//
+//    // initialize expected results
+//    vector<string> webOrder = {"facebook.com", "google.com"};
+//    vector<double> expectedRanks = {0.5, 0.5};
+//
+//    // compare actual results vs expected results
+//    for (int i = 0; i < webOrder.size(); i++) {
+//        string website = webOrder[i];
+//        double expectedRank = expectedRanks[i];
+//        REQUIRE(initialRank[i] == expectedRank);
+//    }
+//    cout << "Test Four Successful!" << endl;
+//}
+//
+//TEST_CASE("Test Five - Large Cyclical Graph", "[Max Input/Constraints] [Cyclic Graph]") {
+//    // instantiate class & variables
+//    AdjacencyList adjList;
+//    set<string> websites;
+//    int powerIterations = 1000;
+//    int numWebs = 10000;
+//
+//    // create a cyclical graph where each website points to the next website
+//    for (int i = 0; i <= numWebs; i++) {
+//        string from = "website" + to_string(i) + ".com";
+//        string to = "website" + to_string(i+ 1) + ".com";
+//        adjList.insertEdge(from, to, websites);
+//    }
+//    for (const auto& website : websites) {
+//        adjList.insertEmptyNode(website);
+//    }
+//
+//    // calculate rank
+//    int numWebsites = websites.size();
+//    vector<double> initialRank(numWebsites, 1.0 / numWebsites);
+//    adjList.calcPowerRank(initialRank, powerIterations);
+//
+//    // actual vs. expected results --> cyclical result should make all expectedRanks equal
+//    double expectedRank = 1.0 / numWebsites;
+//    for (double rank : initialRank) {
+//        REQUIRE(abs(rank - expectedRank) < 0.1); // should equal out to near zero
+//    }
+//    cout << "Test Five Successful" << endl;
+//}
