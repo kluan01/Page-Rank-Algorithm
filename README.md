@@ -1,7 +1,6 @@
 IDE: CLion  
 Compiler: C++17
 
-Hi! Here is my rendition of a simplified version of the original PageRank algorithm on which Google was built by using an Adjacency List.
 ## To Test:
 1. Clone and download dependencies found in CMakeList
 2. In the first line, name the number of lines & the power iteration
